@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"fyne.io/fyne"
+	"fyne.io/fyne/app"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 )
@@ -13,26 +14,32 @@ import (
 var mineMap [100]bool
 
 func main() {
-	// generate mine map
+	// Generate a mine map
 	mineMap = generateMineMap()
 
 	fmt.Println(mineMap)
 
-	// create  window
+	// Start up a fyne application
+	app := app.New()
+
+	// Create the new window to work inside
+	w := app.NewWindow("MineSweeper")
+
+	// Add the menu and container to the window
 
 	// create menu
 
 	// create Container
 
 	// add cells
-	// app := app.New()
+	//
 
-	// w := app.NewWindow("MineSweeper")
+	//
 	// w.SetContent(widget.NewTabContainer(
 	// 	widget.NewTabItem("game", makeGameBoard()),
 	// ))
 
-	// w.ShowAndRun()
+	w.ShowAndRun()
 }
 
 // Creates a 100
