@@ -10,9 +10,13 @@ import (
 	"fyne.io/fyne/widget"
 )
 
+var mineMap [100]bool
+
 func main() {
 	// generate mine map
-	generateMineMap()
+	mineMap = generateMineMap()
+
+	fmt.Println(mineMap)
 
 	// create  window
 
@@ -39,6 +43,8 @@ func generateMineMap() [100]bool {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	for i := range sb {
+		// Generate a random number between 1 and 100
+		// and if it is greater than 60, mark it as a mine
 		mine := r.Intn(100)
 
 		if mine > 60 {
@@ -49,7 +55,6 @@ func generateMineMap() [100]bool {
 		sb[i] = false
 	}
 
-	fmt.Println(sb)
 	return sb
 }
 
