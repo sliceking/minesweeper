@@ -2,23 +2,55 @@ package main
 
 import (
 	"fmt"
-
-	"fyne.io/fyne/layout"
+	"math/rand"
+	"time"
 
 	"fyne.io/fyne"
-	"fyne.io/fyne/app"
+	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 )
 
 func main() {
-	app := app.New()
+	// generate mine map
+	generateMineMap()
 
-	w := app.NewWindow("MineSweeper")
-	w.SetContent(widget.NewTabContainer(
-		widget.NewTabItem("game", makeGameBoard()),
-	))
+	// create  window
 
-	w.ShowAndRun()
+	// create menu
+
+	// create Container
+
+	// add cells
+	// app := app.New()
+
+	// w := app.NewWindow("MineSweeper")
+	// w.SetContent(widget.NewTabContainer(
+	// 	widget.NewTabItem("game", makeGameBoard()),
+	// ))
+
+	// w.ShowAndRun()
+}
+
+// Creates a 100
+func generateMineMap() [100]bool {
+	var sb [100]bool
+
+	// Create a random number generator using the time as a seed
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	for i := range sb {
+		mine := r.Intn(100)
+
+		if mine > 60 {
+			sb[i] = true
+			continue
+		}
+
+		sb[i] = false
+	}
+
+	fmt.Println(sb)
+	return sb
 }
 
 func makeGameBoard() *fyne.Container {
