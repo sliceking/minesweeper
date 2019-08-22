@@ -35,9 +35,9 @@ func main() {
 	//
 
 	//
-	// w.SetContent(widget.NewTabContainer(
-	// 	widget.NewTabItem("game", makeGameBoard()),
-	// ))
+	w.SetContent(widget.NewTabContainer(
+		widget.NewTabItem("game", makeGameBoard()),
+	))
 
 	w.ShowAndRun()
 }
@@ -71,7 +71,7 @@ func makeGameBoard() *fyne.Container {
 	cells := []fyne.CanvasObject{}
 
 	for i := 0; i < gridArea; i++ {
-		cells = append(cells, makeCell())
+		cells = append(cells, newSquare())
 	}
 
 	return fyne.NewContainerWithLayout(layout.NewGridLayout(gridWidth), cells...)
@@ -80,4 +80,22 @@ func makeGameBoard() *fyne.Container {
 func makeCell() *widget.Button {
 	rect := widget.NewButton("M", func() { fmt.Println("yay") })
 	return rect
+}
+
+// Square represents a square on the gameboard, it is very close to a
+// fyne button, so it's an alias with some extra functions attached
+type Square struct {
+	*widget.Button
+}
+
+func newSquare() *Square {
+	s := widget.NewButton("M", func() { fmt.Println("yay") })
+	sq := Square{s}
+	return &sq
+}
+
+// This is trying to overwrite the tappedsecondary method of the
+// button widget.
+func (s *Square) TappedSecondary(*fyne.PointEvent) {
+	fmt.Println("nooo")
 }
