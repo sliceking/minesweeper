@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 
@@ -17,7 +16,7 @@ func main() {
 	// Generate a mine map
 	mineMap = generateMineMap()
 
-	fmt.Println(mineMap)
+	// fmt.Println(mineMap)
 
 	// Start up a fyne application
 	app := app.New()
@@ -67,35 +66,35 @@ func generateMineMap() [100]bool {
 
 func makeGameBoard() *fyne.Container {
 	gridWidth := 10
-	gridArea := gridWidth * gridWidth
+	// gridArea := gridWidth * gridWidth
 	cells := []fyne.CanvasObject{}
 
-	for i := 0; i < gridArea; i++ {
-		cells = append(cells, newSquare())
+	for i := 0; i < 100; i++ {
+		label := "clear"
+		if mineMap[i] == true {
+			label = "mine"
+		}
+		sq := newSquare(label)
+		cells = append(cells, sq)
 	}
 
 	return fyne.NewContainerWithLayout(layout.NewGridLayout(gridWidth), cells...)
 }
 
-func makeCell() *widget.Button {
-	rect := widget.NewButton("M", func() { fmt.Println("yay") })
-	return rect
-}
-
 // Square represents a square on the gameboard, it is very close to a
 // fyne button, so it's an alias with some extra functions attached
-type Square struct {
-	*widget.Button
-}
+// type Square struct {
+// 	*widget.Button
+// }
 
-func newSquare() *Square {
-	s := widget.NewButton("M", func() { fmt.Println("yay") })
-	sq := Square{s}
-	return &sq
-}
+// func newSquare(label string) *Square {
+// 	s := widget.NewButton(label, func() { fmt.Println(label) })
+// 	sq := Square{s}
+// 	return &sq
+// }
 
-// This is trying to overwrite the tappedsecondary method of the
-// button widget.
-func (s *Square) TappedSecondary(*fyne.PointEvent) {
-	fmt.Println("nooo")
-}
+// TappedSecondary is trying to overwrite a method with the same name
+// on widget.Button.
+// func (s *Square) TappedSecondary(*fyne.PointEvent) {
+// 	fmt.Println("nooo")
+// }
